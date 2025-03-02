@@ -24,5 +24,5 @@ This microservice is responsible for calculating cost estimates for 3D printing 
 1. **Clone the repository:**
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/DavCoder22/quotation-domain.git
    cd quotation-domain
