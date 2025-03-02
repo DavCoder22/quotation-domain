@@ -1,0 +1,73 @@
+openapi: 3.0.0
+info:
+  title: Quotation Domain API
+  description: API for calculating cost estimates for 3D printing projects based on material, size, complexity, and shipping costs.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: Local server
+
+paths:
+  /quotation:
+    get:
+      summary: Calculate Quotation
+      description: Calculate the cost estimate for a 3D printing job based on material, size, complexity, and shipping costs.
+      tags:
+        - Quotation
+      parameters:
+        - name: material
+          in: query
+          description: Type of material used for printing
+          required: true
+          schema:
+            type: string
+            enum: [PLA, ABS, PETG, TPU]
+        - name: size
+          in: query
+          description: Size of the print in cubic centimeters
+          required: true
+          schema:
+            type: number
+            format: float
+        - name: complexity
+          in: query
+          description: Complexity level of the print
+          required: true
+          schema:
+            type: string
+            enum: [low, medium, high]
+        - name: shipping
+          in: query
+          description: Shipping cost
+          required: true
+          schema:
+            type: number
+            format: float
+      responses:
+        '200':
+          description: Successful response with quotation details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  subtotal:
+                    type: number
+                    description: Subtotal cost of the print
+                  shipping:
+                    type: number
+                    description: Shipping cost
+                  total:
+                    type: number
+                    description: Total cost including shipping
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
